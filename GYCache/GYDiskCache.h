@@ -1,6 +1,6 @@
 //
 //  GYDiskCache.h
-//  GYCache
+//  GYCacheDemo
 //
 //  Created by guoyang on 16/7/20.
 //  Copyright © 2016年 guoyang. All rights reserved.

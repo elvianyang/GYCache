@@ -1,6 +1,6 @@
 //
 //  GYDiskCache.m
-//  GYCache
+//  GYCacheDemo
 //
 //  Created by guoyang on 16/7/20.
 //  Copyright © 2016年 guoyang. All rights reserved.
@@ -386,16 +386,12 @@ NSString *const GYDiskCacheResponseKey = @"GYDiskCacheResponseKey";
     item.expireDate = [NSDate dateWithTimeIntervalSinceNow:self.cacheTimeoutInterval];
     item.response = response;
     item.path = savePath;
-    BOOL isUpdate = NO;
     if([[NSFileManager defaultManager] fileExistsAtPath:savePath]) {
-        [[NSFileManager defaultManager] removeItemAtPath:savePath error:nil];
+        [self removeCacheForKey:name];
         [[GYDiskCacheItemMap singleton] removeCacheByName:item.name];
-        isUpdate = YES;
     }
-    if(!isUpdate) {
-        _currentCount++;
-        _currentCost += item.data.length;
-    }
+    _currentCount++;
+    _currentCost += item.data.length;
     [[GYDiskCacheItemMap singleton] addNewCacheInfoWithCacheItem:item];
     return [NSKeyedArchiver archiveRootObject:item toFile:savePath];
 }

@@ -1,6 +1,6 @@
 //
 //  GYMemoryCache.m
-//  MySDWebImage
+//  GYCacheDemo
 //
 //  Created by guoyang on 16/7/21.
 //  Copyright © 2016年 guoyang. All rights reserved.
@@ -209,6 +209,9 @@ NSString *const GYMemoryCacheResponseKey = @"GYMemoryCacheResponseKey";
         if(!key)return;
         NSDate *expireDate = [NSDate dateWithTimeIntervalSinceNow:DEFAULT_CACHE_DATE];
         GYMemoryCacheItem *item = [GYMemoryCacheItem cacheItemWithData:cacheData reponse:response expireDate:expireDate key:key];
+        if([self existsCacheForKey:key]) {
+            [self removeCacheForKey:key];
+        }
         [_memoryCacheDic setObject:item forKey:key];
         [_linkList addMemoryCacheItem:item];
         _currentCacheCount++;
